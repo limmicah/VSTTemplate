@@ -1,0 +1,45 @@
+const rotaryKnobLaf = Content.createLocalLookAndFeel();
+
+rotaryKnobLaf.registerFunction("drawRotarySlider", function(g, obj)
+{
+    var conWidth = 52;
+    var arcThickness = 0.08;
+    var arcWidth = 1 - 2 * arcThickness;
+    var startOffset = 2.5;
+    var endOffset = -startOffset + 2 * startOffset * obj.valueNormalized;
+
+    var area = obj.area;
+    var center = conWidth / 2;
+
+    // Background fill
+    g.setColour(obj.bgColour);
+    g.fillEllipse([4, 4, conWidth - 8, conWidth - 8]);
+
+    // Outline circle
+    g.setColour(Colours.white);
+    g.drawEllipse([4, 4, conWidth - 8, conWidth - 8], 1);
+
+    // Arc path
+    var arcPath = Content.createPath();
+    arcPath.addArc(
+        [arcThickness / 2, arcThickness / 2, arcWidth + arcThickness, arcWidth + arcThickness],
+        -startOffset - 0.08,
+        endOffset
+    );
+
+    var arcBounds = arcPath.getBounds(conWidth);
+    g.setColour(obj.textColour);
+    g.drawPath(arcPath, arcBounds, conWidth * arcThickness);
+
+    // Value label
+    g.setColour(obj.textColour);
+    g.setFont("Inter", 13);
+    g.drawAlignedText(Engine.doubleToString(obj.value, 1) + obj.suffix, [0, 56, area[2], 15], "centred");
+
+    // Pointer
+    g.rotate(endOffset, [center, center]);
+    g.fillRoundedRectangle(
+        [center - conWidth * 0.02, center - conWidth * 0.38, conWidth * 0.04, conWidth * 0.30],
+        1
+    );
+});
