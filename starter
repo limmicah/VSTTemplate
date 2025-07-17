@@ -1,0 +1,7 @@
+Content.makeFrontInterface(430, 450);
+
+include("ZoomHandler.js");
+
+Engine.loadFontAs("{PROJECT_FOLDER}Fonts/Inter/InterBold.ttf", "InterBold");
+Engine.loadFontAs("{PROJECT_FOLDER}Fonts/Inter/InterItalic.ttf", "InterItalic");
+Engine.loadFontAs("{PROJECT_FOLDER}Fonts/Inter/InterRegular.ttf", "Inter");
